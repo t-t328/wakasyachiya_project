@@ -1,0 +1,23 @@
+services:
+  main:
+    build: ./main/
+    container_name: main
+    restart: always
+    tty: true
+    #ポート番号の同期
+    ports:
+      - "8000:8000"
+    #ディレクトリの同期
+    volumes:
+      - ./main/dir:/dir
+    networks:
+      - netowork
+
+networks:
+  netowork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.2.0/24
+          gateway: 192.168.2.1
