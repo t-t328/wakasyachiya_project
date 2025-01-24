@@ -1,6 +1,6 @@
 services:
   main:
-    build: ./main/
+    build: ./
     container_name: main
     restart: always
     tty: true
@@ -9,5 +9,5 @@ services:
       - "5001:5000"
     #ディレクトリの同期
     volumes:
-      - ./main/dir:/dir
+      - ./dir:/dir
     command: flask run --host=0.0.0.0
