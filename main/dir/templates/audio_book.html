@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/dir/templates/asset/css/style.css"> <!-- CSSファイルの読み込みができない -->
+    <link rel="stylesheet" href="./static/css/style.css"> <!-- CSSファイルの読み込みができない -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
     <title>ちとこば</title>
     <style>
         @font-face {
             font-family: 'myfont';
-            src: url(./asset/font/GenEiKoburiMin6-R.ttf);
+            src: url(./static/font/GenEiKoburiMin6-R.ttf);
         }
         html{
             font-size: 17.5px;
@@ -17,45 +17,6 @@
             line-height: 1.5;
             color: black;
             background-color: #F7F3E7;
-        }
-        body{
-            height: 100vh;
-        }
-        header{
-            font-size: 1.2rem;
-            padding: 10px 10px 20px 10px;
-        }
-        .wrapper{
-            height: 80vh;
-        }
-        .textcontent{
-            writing-mode: vertical-rl;
-            width: 100vw;
-            overflow: scroll;
-        }
-        .title{
-            padding: 20px;
-        }
-        .title h1{
-            font-size: 1.5rem;
-            margin-top: 10%;
-        }
-        .title h3{
-            text-align: right;
-        }
-        .textcontent p{
-            white-space: pre-wrap;
-        }
-        .date{
-            text-align: right;
-            font-size: 0.8rem;
-            padding: 5px 5px 0 0;
-        }
-        .audiocontent{
-            position: absolute;
-            bottom: 5px;
-            left: 50%;
-            transform: translateX(-50%);
         }
     </style>
 </head>
@@ -190,7 +151,7 @@
     <footer>
         <div class="audiocontent">
             <audio controls>
-                <source src="./asset/audio/風花の満月.mp3" type="audio/mp3">
+                <source src="./static/audio/風花の満月.mp3" type="audio/mp3">
                 <p>音声が再生できません</p>
             </audio>
         </div>

@@ -1,0 +1,39 @@
+body{
+    height: 100vh;
+}
+header{
+    font-size: 1.2rem;
+    padding: 10px 10px 20px 10px;
+}
+.wrapper{
+    height: 80vh;
+}
+.textcontent{
+    writing-mode: vertical-rl;
+    width: 100vw;
+    overflow: scroll;
+}
+.title{
+    padding: 20px;
+}
+.title h1{
+    font-size: 1.5rem;
+    margin-top: 10%;
+}
+.title h3{
+    text-align: right;
+}
+.textcontent p{
+    white-space: pre-wrap;
+}
+.date{
+    text-align: right;
+    font-size: 0.8rem;
+    padding: 5px 5px 0 0;
+}
+.audiocontent{
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
