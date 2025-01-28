@@ -37,3 +37,23 @@ header{
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* ------------- Web Audio API -------------- */
+
+.container {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    /* ･･･ */
+}
+
+.box {
+    flex: 1;
+    height: 100%;
+    scale: 1 0;
+    background: white;
+}
+
+/* ------------------------------------------- */

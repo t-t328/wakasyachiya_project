@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/css/style.css"> <!-- CSSファイルの読み込みができない -->
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css"> <!-- CSSファイルの読み込みができない -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
     <title>ちとこば</title>
     <style>
+        /* フォントの読み込み */
         @font-face {
             font-family: 'myfont';
             src: url(./static/font/GenEiKoburiMin6-R.ttf);
@@ -150,11 +151,19 @@
     </main>
     <footer>
         <div class="audiocontent">
-            <audio controls>
-                <source src="./static/audio/風花の満月.mp3" type="audio/mp3">
+            <audio src="./static/audio/風花の満月.mp3" type="audio/mp3" id="audio" controls>
                 <p>音声が再生できません</p>
             </audio>
         </div>
+
+<!--------------- Web Audio API ----------------->
+
+        <div class="container">
+            <script src="./static/js/web_audio.js" type="text/javascipt"></script>
+        </div>
+
+<!----------------------------------------------->
+
     </footer>
 </body>
 </html>
