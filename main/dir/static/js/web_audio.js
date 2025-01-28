@@ -1,4 +1,4 @@
-console.log("web_audio.js");
+console.log("web_audio.js"); // ファイル読み込み確認
 
 const boxes = [];
 // div要素の配置
