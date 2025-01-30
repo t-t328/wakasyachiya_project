@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./static/css/style.css"> <!-- CSSファイルの読み込みができない -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>ちとこば</title>
     <style>
         /* フォントの読み込み */
@@ -149,6 +150,13 @@
             </div>
         </div>
     </main>
+    <script>
+        const textelement = document.getElementsByClassName("textcontent")[0];
+        const position = (textelement.scrollWidth *-1);
+        setTimeout(function(){
+            $(".textcontent").animate({scrollLeft: position}, 303000,"linear");
+        }, 5000);
+    </script>
     <footer>
         <div class="audiocontent">
             <audio src="./static/audio/風花の満月.mp3" type="audio/mp3" id="audio" controls>
