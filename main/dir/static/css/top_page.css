@@ -1,9 +1,7 @@
 body{
     text-align: center;
     background-color:#D9D9D9;
-}
-.header-top{
-    padding: 0 20px;
+    height: 100vh;
 }
 body.no_scroll{
     overflow: hidden;
@@ -71,7 +69,6 @@ a{
     right: 0;
     bottom: 0;
     transform: rotate(45deg) translate(0,-3px);
-    
 }
 
 .icon img{

@@ -16,3 +16,7 @@ def menu_page():
 @app.route("/audio_book")
 def audio_book():
     return render_template('audio_book.html')
+
+@app.route("/top_page")
+def top_page():
+    return render_template('top_page.html')
