@@ -1,49 +1,66 @@
 console.log("web_audio.js"); // ファイル読み込み確認
 
-const boxes = [];
-// div要素の配置
-for (let i = 0; i < FFT_SIZE / 2; i++) { // FFT_SIZE / 2 は 64
-    const div = document.createElement("div");
-    div.classList.add("box");
-    containerElement.append(div);
-    boxes[i] = div; // 配列に保存
-}
+const audio = document.getElementById('audio');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-const context = new AudioContext();
+let audioCtx = null;
 
-// アナライザーを生成
-const nodeAnalyser = context.createAnalyser();
-// フーリエ変換を行う分割数。2の乗数でなくてはならない
-nodeAnalyser.fftSize = FFT_SIZE;
-// 0～1の範囲でデータの動きの速さ 0だともっとも速く、1に近づくほど遅くなる
-nodeAnalyser.smoothingTimeConstant = 0.85;
-// オーディオの出力先を設定
-nodeAnalyser.connect(context.destination);
+const playButton = document.getElementById('playButton'); // 再生ボタン
 
-// audio 要素と紐付ける
-const nodeSource = context.createMediaElementSource(audioElement);
-nodeSource.connect(nodeAnalyser);
+playButton.addEventListener('click', () => {
+    // ユーザー操作後に audio.play() を呼び出す
+    audio.play();
+    if (!audioCtx) {
+        // ... (AudioContext の設定、ノードの接続など) ...
+        audioCtx = new AudioContext();
 
-loop();
+        const analyser = audioCtx.createAnalyser();
+        const source = audioCtx.createMediaElementSource(audio);
 
-/** 描画します */
-function loop() {
-    requestAnimationFrame(loop);
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
 
-    // 波形データを格納する配列の生成
-    const freqByteData = new Uint8Array(FFT_SIZE / 2);
-    // それぞれの周波数の振幅を取得
-    nodeAnalyser.getByteFrequencyData(freqByteData);
+        analyser.fftSize = 64; // FFT サイズ
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
 
-    // 🌟この処理を追加🌟
-    // 高さの更新
-    for (let i = 0; i < freqByteData.length; i++) {
-        const freqSum = freqByteData[i]; // 🌟解析した音の値を取得
-        // 値は256段階で取得できるので正規化して 0.0 〜 1.0 の値にする
-        const scale = freqSum / 256;
+        function draw() {
+            console.log('draw');
 
-        // Y軸のスケールを変更
-        const div = boxes[i]; // 🌟DOM要素を取得
-        div.style.scale = `1 ${scale}`; // 🌟適用
-}
-}
+            analyser.getByteFrequencyData(dataArray);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const barWidth = canvas.width / (bufferLength*2);
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i] / 255 * canvas.height;
+                ctx.fillStyle = 'rgb(0, 0, 0)';
+                ctx.fillRect(x, (canvas.height - barHeight)/2, barWidth, barHeight);
+                // ctx.roundRect(x, (canvas.height - barHeight)/2, barWidth, barHeight, 10);
+                ctx.fill();
+                x += barWidth*2;
+            }
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+
+        // 初回は resume() が必要
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume().then(() => {
+                console.log('AudioContext resumed successfully');
+            }).catch(error => {
+                console.error('Error resuming AudioContext:', error);
+            });
+        }
+    }
+});
+
+stopButton.addEventListener('click', () => {
+    audio.pause();
+    // audio.currentTime = 0;
+});
