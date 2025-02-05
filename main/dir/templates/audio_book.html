@@ -4,25 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./static/css/style.css"> <!-- CSSファイルの読み込みができない -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css"> <!-- CSSファイルの読み込みができない -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>ちとこば</title>
-    <style>
-        /* フォントの読み込み */
-        @font-face {
-            font-family: 'myfont';
-            src: url(./static/font/GenEiKoburiMin6-R.ttf);
-        }
-
-        html {
-            font-size: 17.5px;
-            font-family: 'myfont';
-            line-height: 1.5;
-            color: black;
-            background-color: #F7F3E7;
-        }
-    </style>
 </head>
 
 <body>
@@ -149,7 +134,13 @@
                     「ああ、ありがとう。またね」</p>
             </div>
             <div class="date">
-                <p>2025/1/24</p>
+                <script>
+                    const Dates = new Date();
+                    const year = Dates.getFullYear();
+                    const month = Dates.getMonth() + 1;
+                    const date = Dates.getDate();
+                    document.getElementsByClassName("date")[0].insertAdjacentHTML('beforeend', `<p>${year}/${month}/${date}</p>`);
+                </script>
             </div>
         </div>
     </main>
