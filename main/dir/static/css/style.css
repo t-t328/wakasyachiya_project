@@ -1,8 +1,8 @@
 /* フォントの読み込み */
-@font-face {
+/* @font-face {
     font-family: 'myfont';
     src: url(../font/GenEiKoburiMin6-R.ttf);
-}
+} */
 
 html {
     font-size: 17.5px;
