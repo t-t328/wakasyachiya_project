@@ -13,7 +13,7 @@ const stopButton = document.getElementById('stopButton'); // 停止ボタン
 // 初期値を設定
 const text = document.getElementsByClassName("textcontent")[0];
 const textWidth = text.scrollWidth; // テキスト全体の幅
-const movePerSecond = textWidth / (5*60 + 4); // 5分4秒でスクロールするための移動量
+const movePerSecond = textWidth / (6*60 + 43); // 7分13秒でスクロールするための移動量　ほんとは30秒待ってほしいから6分43秒想定になってる
 const ajust = 100; // 調整値
 // フレームレート30fps
 var speed = -1 * movePerSecond / ajust; //スクロール量（1 = 1px）
@@ -21,6 +21,7 @@ var speed = -1 * movePerSecond / ajust; //スクロール量（1 = 1px）
 var interval = 5000 / ajust; //スクロール間隔（1000 = 1秒）
 // 一行当たりの秒数 * 30
 
+const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
 playButton.addEventListener('click', () => {
     $('#playButton').hide();
     $('#stopButton').show();
@@ -77,19 +78,20 @@ playButton.addEventListener('click', () => {
     }
 
     // スクロール処理
-    var scroll = setInterval(function () {
+    var scroll = setInterval(async function () {
+        await sleep(30000);
         var scrollLeft = text.scrollLeft; // 現在のスクロール量を計測
         var scrollwidth = scrollLeft + speed; // 次の移動先までの距離を指定
         text.scrollLeft = scrollwidth   // スクロールさせる
         $('#stop').off('click');      // on clickの重複防止のため
 
-    //スクロール中に停止ボタンが押された時
-    $('#stopButton').on('click', function () {
-        clearInterval(scroll);      // setIntervalの処理を停止
-        $(this).hide();             // 停止ボタンを非表示にして、
-        $('#playButton').show();         // 再生ボタンを表示
-        audio.pause();              // 音楽を停止
-    });
+        //スクロール中に停止ボタンが押された時
+        $('#stopButton').on('click', function () {
+            clearInterval(scroll);      // setIntervalの処理を停止
+            $(this).hide();             // 停止ボタンを非表示にして、
+            $('#playButton').show();         // 再生ボタンを表示
+            audio.pause();              // 音楽を停止
+        });
     }, interval);  // setIntervalを変数intervalの間隔で繰り返す。
 });
 
