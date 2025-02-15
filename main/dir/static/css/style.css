@@ -1,17 +1,17 @@
 フォントの読み込み */
-@font-face {
-    font-family: "GenEiKoburiMin";
-    src: url("fonts/GenEiKoburiMin6-R.woff2") format("woff2"),
-         url("fonts/GenEiKoburiMin6-R.woff") format("woff"); /* WOFFもあれば追加 */
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  /* フォントを適用 */
-  body {
-    font-family: "GenEiKoburiMin", sans-serif;
-  }
-  
+    @font-face {
+        font-family: "GenEiKoburiMin";
+        src: url("font/GenEiKoburiMin6-R.woff2") format("woff2"),
+            url("font/GenEiKoburiMin6-R.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    /* フォントを適用 */
+    body {
+        font-family: "GenEiKoburiMin", sans-serif;
+    }
+    
 
 
 html {
