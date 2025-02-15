@@ -1,0 +1,96 @@
+header {
+    text-align: center;
+}
+body {
+  width: 90%;
+  margin: 0 auto;
+  background-image: url("../img/bg.jpg");
+  font-family: "Zen Maru Gothic", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+h1,
+p {
+  color: white;
+}
+main {
+  margin: 60px 0;
+}
+main a {
+  text-decoration: none;
+}
+.titokoba {
+  background-color: #dc8323;
+  border-radius: 30px;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 80px;
+}
+.titokoba::before {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ce7a19;
+  position: absolute;
+  top: 3%;
+  left: 1%;
+  z-index: -5;
+  border-radius: 30px;
+}
+
+.game {
+  background-color: #316745;
+  border-radius: 30px;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 5px;
+}
+.game::before {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #275238;
+  position: absolute;
+  top: 3%;
+  left: 1%;
+  z-index: -5;
+  border-radius: 30px;
+}
+h1 {
+  font-weight: lighter;
+  border-bottom: 3px solid white;
+  margin: 0 60px;
+  position: relative;
+}
+h1::after {
+  content: " ";
+  display: block;
+  width: 15px;
+  height: 3px;
+  background-color: #fff;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: rotate(45deg) translate(0, -2px);
+}
+footer {
+  bottom: -5px;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.wakasyatiya-icon {
+  width: 100%;
+  margin: 0 auto;
+  height: 50%;
+  max-width: 400px;
+  border-radius: 10px 10px 0 0;
+}

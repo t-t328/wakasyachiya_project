@@ -1,49 +1,100 @@
 console.log("web_audio.js"); // ファイル読み込み確認
 
-const boxes = [];
-// div要素の配置
-for (let i = 0; i < FFT_SIZE / 2; i++) { // FFT_SIZE / 2 は 64
-    const div = document.createElement("div");
-    div.classList.add("box");
-    containerElement.append(div);
-    boxes[i] = div; // 配列に保存
-}
+const audio = document.getElementById('audio');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-const context = new AudioContext();
 
-// アナライザーを生成
-const nodeAnalyser = context.createAnalyser();
-// フーリエ変換を行う分割数。2の乗数でなくてはならない
-nodeAnalyser.fftSize = FFT_SIZE;
-// 0～1の範囲でデータの動きの速さ 0だともっとも速く、1に近づくほど遅くなる
-nodeAnalyser.smoothingTimeConstant = 0.85;
-// オーディオの出力先を設定
-nodeAnalyser.connect(context.destination);
+let audioCtx = null;
 
-// audio 要素と紐付ける
-const nodeSource = context.createMediaElementSource(audioElement);
-nodeSource.connect(nodeAnalyser);
+const playButton = document.getElementById('playButton'); // 再生ボタン
+const stopButton = document.getElementById('stopButton'); // 停止ボタン
 
-loop();
+// 初期値を設定
+const text = document.getElementsByClassName("textcontent")[0];
+const textWidth = text.scrollWidth; // テキスト全体の幅
+const movePerSecond = textWidth / (6*60 + 43); // 7分13秒でスクロールするための移動量　ほんとは30秒待ってほしいから6分43秒想定になってる
+const ajust = 100; // 調整値
+// フレームレート30fps
+var speed = -1 * movePerSecond / ajust; //スクロール量（1 = 1px）
+// 参考 一行当たり26.25px
+var interval = 5000 / ajust; //スクロール間隔（1000 = 1秒）
+// 一行当たりの秒数 * 30
 
-/** 描画します */
-function loop() {
-    requestAnimationFrame(loop);
+const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
+playButton.addEventListener('click', () => {
+    $('#playButton').hide();
+    $('#stopButton').show();
+    // ユーザー操作後に audio.play() を呼び出す
+    audio.play();
+    // audio.currentTime = 0; // 再生位置を先頭に戻す
 
-    // 波形データを格納する配列の生成
-    const freqByteData = new Uint8Array(FFT_SIZE / 2);
-    // それぞれの周波数の振幅を取得
-    nodeAnalyser.getByteFrequencyData(freqByteData);
+    // オーディオビジュアライザーの描画
+    if (!audioCtx) {
+        // ... (AudioContext の設定、ノードの接続など) ...
+        audioCtx = new AudioContext();
 
-    // 🌟この処理を追加🌟
-    // 高さの更新
-    for (let i = 0; i < freqByteData.length; i++) {
-        const freqSum = freqByteData[i]; // 🌟解析した音の値を取得
-        // 値は256段階で取得できるので正規化して 0.0 〜 1.0 の値にする
-        const scale = freqSum / 256;
+        const analyser = audioCtx.createAnalyser();
+        const source = audioCtx.createMediaElementSource(audio);
 
-        // Y軸のスケールを変更
-        const div = boxes[i]; // 🌟DOM要素を取得
-        div.style.scale = `1 ${scale}`; // 🌟適用
-}
-}
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        analyser.fftSize = 64; // FFT サイズ
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function draw() {
+
+            analyser.getByteFrequencyData(dataArray);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const barWidth = canvas.width / (bufferLength * 2);
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i] / 255 * canvas.height;
+                ctx.fillStyle = 'rgb(0, 0, 0)';
+                ctx.fillRect(x, (canvas.height - barHeight) / 2, barWidth, barHeight);
+                // ctx.roundRect(x, (canvas.height - barHeight)/2, barWidth, barHeight, 10);
+                ctx.fill();
+                x += barWidth * 2;
+            }
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+
+        // 初回は resume() が必要
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume().then(() => {
+                console.log('AudioContext resumed successfully');
+            }).catch(error => {
+                console.error('Error resuming AudioContext:', error);
+            });
+        }
+    }
+
+    // スクロール処理
+    var scroll = setInterval(async function () {
+        await sleep(30000);
+        var scrollLeft = text.scrollLeft; // 現在のスクロール量を計測
+        var scrollwidth = scrollLeft + speed; // 次の移動先までの距離を指定
+        text.scrollLeft = scrollwidth   // スクロールさせる
+        $('#stop').off('click');      // on clickの重複防止のため
+
+        //スクロール中に停止ボタンが押された時
+        $('#stopButton').on('click', function () {
+            clearInterval(scroll);      // setIntervalの処理を停止
+            $(this).hide();             // 停止ボタンを非表示にして、
+            $('#playButton').show();         // 再生ボタンを表示
+            audio.pause();              // 音楽を停止
+        });
+    }, interval);  // setIntervalを変数intervalの間隔で繰り返す。
+});
+
+stopButton.addEventListener('click', () => {
+    // audio.currentTime = 0;
+});

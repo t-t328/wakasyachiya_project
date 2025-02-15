@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'GenEi Koburi Mincho v6';
+    src: url('GenEiKoburiMin6-R.woff2') format('woff2'),
+        url('GenEiKoburiMin6-R.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
