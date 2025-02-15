@@ -1,11 +1,5 @@
 {
     "version": 2,
-    "rewrites": [
-        { 
-            "source": "/dir/(.*)",
-            "destination": "/dir/index"
-        }
-    ],
     "builds": [
         {
             "src": "dir/main.py",
