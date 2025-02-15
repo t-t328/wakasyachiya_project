@@ -1,8 +1,11 @@
-/* フォントの読み込み */
-/* @font-face {
-    font-family: 'myfont';
-    src: url(../font/GenEiKoburiMin6-R.ttf);
-} */
+フォントの読み込み */
+
+.your-style {
+    font-family: 'GenEi Koburi Mincho v6';
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 html {
     font-size: 17.5px;
