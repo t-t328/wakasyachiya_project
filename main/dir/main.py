@@ -9,10 +9,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/menu_page")
-def menu_page():
-    return render_template('menu_page.html')
-
 @app.route("/audio_book")
 def audio_book():
     return render_template('audio_book.html')
+
+@app.route("/azumaya_top")
+def azumaya_top():
+    return render_template('azumaya_top.html')

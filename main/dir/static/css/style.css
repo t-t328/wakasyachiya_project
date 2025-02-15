@@ -1,14 +1,37 @@
+フォントの読み込み */
+    /* @font-face {
+        font-family: "GenEiKoburiMin";
+        src: url("font/GenEiKoburiMin6-R.woff2") format("woff2"),
+            url("font/GenEiKoburiMin6-R.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    /* フォントを適用 */
+    /* body {
+        font-family: "GenEiKoburiMin", sans-serif;
+    } */
+     */
+
+
+html {
+    font-size: 17.5px;
+    line-height: 1.5;
+    color: black;
+    background-color: #F7F3E7;
+}
+
 body{
     height: 100vh;
+    overflow: hidden;
+    font-family: "Sawarabi Mincho", serif;
 }
 header{
     font-size: 1.2rem;
     padding: 10px 10px 20px 10px;
 }
-.wrapper{
-    height: 80vh;
-}
 .textcontent{
+    height: 70vh;
     writing-mode: vertical-rl;
     width: 100vw;
     overflow: scroll;
@@ -24,36 +47,51 @@ header{
     text-align: right;
 }
 .textcontent p{
-    white-space: pre-wrap;
+    white-space: pre-line;
 }
 .date{
     text-align: right;
     font-size: 0.8rem;
     padding: 5px 5px 0 0;
 }
-.audiocontent{
+
+/* footer{
     position: absolute;
     bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
+} */
+
+footer canvas{
+    display: block;
+    width: 80vw;
+    margin: 1vh auto;
+    height: 10vh;
 }
 
-/* ------------- Web Audio API -------------- */
-
-.container {
+.audiocontent{
+    position: absolute;
+    bottom: 1vh;
+    width: 100vw;
     display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    gap: 1px;
-    /* ･･･ */
+    justify-content: space-around;
 }
 
-.box {
-    flex: 1;
-    height: 100%;
-    scale: 1 0;
-    background: white;
+.audiocontent button{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
 }
 
-/* ------------------------------------------- */
+.audiocontent audio{
+    display: none;
+}
+
+#playButton{
+    background: url(../img/play_button.png) no-repeat center center;
+    background-size: 100%;
+}
+
+#stopButton{
+    background: url(../img/stop_button.png) no-repeat center center;
+    background-size: 100%;
+    display: none;
+}
